@@ -1,0 +1,91 @@
+.murms__list {
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+}
+
+.murms__list-item {
+	background-color: rgb(229, 231, 238);
+	padding: 15px;
+	border-radius: 10px;
+	width: 90%;
+	border: blue 2px solid;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.murms__owner-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.murms__owner-name {
+	margin: 0;
+	font-size: 26px;
+	line-height: 1.1;
+	font-weight: normal;
+}
+
+.murms__owner-link {
+	margin: 0;
+	font-size: 20px;
+	line-height: 1.1;
+}
+
+.murms__delete-button {
+	background-image: url('../../images/Trash.svg');
+	background-color: rgba(0, 0, 0, 0);
+	position: absolute;
+	top: 18px;
+	right: 15px;
+	width: 18px;
+	height: 19.3px;
+	border: none;
+	outline: none;
+	transition: 0.3s ease;
+	cursor: pointer;
+}
+
+.murms__delete-button:hover {
+	opacity: 0.6;
+}
+
+.murms__delete-button_hidden {
+	display: none;
+}
+
+.murms__like-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.murms__likes-number {
+	margin: 3px 0 0;
+	font-size: 13px;
+	line-height: 16px;
+}
+
+.murms__caption-like {
+	background-image: url('../../images/hearth.svg');
+	background-position: center;
+	background-color: rgb(229, 231, 238);
+	cursor: pointer;
+	width: 20.76px;
+	height: 18.13px;
+	transition: 0.3s ease;
+	border-style: none;
+	outline: none;
+}
+
+.murms__caption-like:hover {
+	opacity: 0.6;
+}
+
+.murms__caption-like_color_black {
+	background-image: url('../../images/black-hearth.svg');
+}
