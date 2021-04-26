@@ -1,7 +1,7 @@
 import React from 'react';
 import './Murm.css';
 
-function Murm({ murm, user }) {
+function Murm({ murm, user, confirmClick }) {
 	const isOwn = murm.owner === user._id;
 	const isLiked = murm.likes.some((i) => i === user._id);
 
@@ -29,7 +29,7 @@ function Murm({ murm, user }) {
 */
 	return (
 		<li className="murms__list-item">
-			<button className={cardDeleteButtonClassName} /* onClick={handleDeleteClick} */ />
+			<button className={cardDeleteButtonClassName} onClick={confirmClick} />
 			<div className="murms__owner-container">
 				<h3 className="murms__owner-name">{murm.name}</h3>
 				<p className="murms__owner-link">{murm.link}</p>
