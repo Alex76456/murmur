@@ -8,12 +8,14 @@
 	background-color: rgb(229, 231, 238);
 	padding: 15px;
 	border-radius: 10px;
-	width: 90%;
+	width: 100%;
 	border: blue 2px solid;
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	align-items: stretch;
 	justify-content: space-between;
+	box-sizing: border-box;
 }
 
 .murms__owner-container {
@@ -36,7 +38,9 @@
 }
 
 .murms__delete-button {
-	background-image: url('../../images/Trash.svg');
+	background-image: url('../../images/trash-icon.png');
+	background-position: center;
+	background-size: contain;
 	background-color: rgba(0, 0, 0, 0);
 	position: absolute;
 	top: 18px;
@@ -58,10 +62,11 @@
 }
 
 .murms__like-container {
+	padding: 3px;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
+	gap: 5px;
 }
 
 .murms__likes-number {
