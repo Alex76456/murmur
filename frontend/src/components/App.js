@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from './Header/Header';
 import Main from './Main/Main';
-import { useState } from 'react';
+import { useState } from 'react'; // <--  хуки лучше так импортировать, так проще понять, что используется чем всматриваться в текст
 import RegistrationPopupForm from './RegistrationPopupForm/RegistrationPopupForm';
 import LoginPopupForm from './LoginPopupForm/LoginPopupForm';
 import EditPopupForm from './EditPopupForm/EditPopupForm';
