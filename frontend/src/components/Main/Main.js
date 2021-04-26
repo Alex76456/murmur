@@ -4,7 +4,7 @@ import Murm from '../Murm/Murm';
 import { murms, testUser } from '../../data/data';
 import { useState } from 'react';
 
-function Main() {
+function Main({ editClick, addClick, avatarClick, confirmClick }) {
 	const [ visibleMurms, setVisibleMurms ] = useState(3);
 
 	function showMoreMurms() {
@@ -14,7 +14,7 @@ function Main() {
 	return (
 		<main className="main">
 			<section className="profile">
-				<div className="profile__avatar-container" /*onClick={onEditAvatar}*/>
+				<div className="profile__avatar-container" onClick={avatarClick}>
 					<img className="profile__avatar" src={testUser.avatar} alt="аватар" />
 				</div>
 				<div className="profile__info">
@@ -22,15 +22,11 @@ function Main() {
 
 					<p className="profile__subtitle">{testUser.link}</p>
 				</div>
-				<button
-					className="profile__edit-button"
-					type="button"
-					/*onClick={onEditProfile}*/
-				>
+				<button className="profile__edit-button" type="button" onClick={editClick}>
 					редактировать
 				</button>
 
-				<button className="profile__add-button" type="button" /*onClick={onAddPlace} */>
+				<button className="profile__add-button" type="button" onClick={addClick}>
 					мурм
 				</button>
 			</section>
@@ -38,7 +34,16 @@ function Main() {
 			<section className="murms">
 				<ul className="murms__list">
 					{murms.map((item, i) => {
-						return i < visibleMurms && <Murm murm={item} key={i} user={testUser} />;
+						return (
+							i < visibleMurms && (
+								<Murm
+									murm={item}
+									key={i}
+									user={testUser}
+									confirmClick={confirmClick}
+								/>
+							)
+						);
 					})}
 				</ul>
 				{murms.length > visibleMurms && (
