@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from './Header/Header';
 import Main from './Main/Main';
+import Footer from './Footer/Footer';
 import { useState } from 'react'; // <--  хуки лучше так импортировать, так проще понять, что используется чем всматриваться в текст
 import RegistrationPopupForm from './RegistrationPopupForm/RegistrationPopupForm';
 import LoginPopupForm from './LoginPopupForm/LoginPopupForm';
@@ -11,12 +12,12 @@ import AvatarPopupForm from './AvatarPopupForm/AvatarPopupForm';
 import ConfirmDeletePopup from './ConfirmDeletePopup/ConfirmDeletePopup';
 
 function App() {
-	const [ isRegisterOpened, setIsRegisterOpened ] = useState(false);
-	const [ isLoginOpened, setIsLoginOpened ] = useState(false);
-	const [ isEditOpened, setIsEditOpened ] = useState(false);
-	const [ isAddOpened, setIsAddOpened ] = useState(false);
-	const [ isAvatarOpened, setIsAvatarOpened ] = useState(false);
-	const [ isConfirmOpened, setIsConfirmOpened ] = useState(false);
+	const [isRegisterOpened, setIsRegisterOpened] = useState(false);
+	const [isLoginOpened, setIsLoginOpened] = useState(false);
+	const [isEditOpened, setIsEditOpened] = useState(false);
+	const [isAddOpened, setIsAddOpened] = useState(false);
+	const [isAvatarOpened, setIsAvatarOpened] = useState(false);
+	const [isConfirmOpened, setIsConfirmOpened] = useState(false);
 
 	function handleRegisterClick() {
 		setIsRegisterOpened(true);
@@ -55,6 +56,8 @@ function App() {
 					avatarClick={handleAvatarClick}
 					confirmClick={handleConfirmClick}
 				/>
+				{/* {!loggedIn && <Footer />} */}
+				<Footer />
 				<RegistrationPopupForm isOpened={isRegisterOpened} onClose={closeAllPopups} />
 				<LoginPopupForm isOpened={isLoginOpened} onClose={closeAllPopups} />
 				<EditPopupForm isOpened={isEditOpened} onClose={closeAllPopups} />
