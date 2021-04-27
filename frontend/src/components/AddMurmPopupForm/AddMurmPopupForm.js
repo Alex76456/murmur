@@ -1,21 +1,33 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useState } from 'react';
+import { useFormWithValidation } from '../../utils/Validation/Validation'
+
 
 function AddMurmPopupForm({ isOpened, onClose }) {
-	const [ text, setText ] = useState('');
+	// const [ text, setText ] = useState('');
 
-	function handleText(e) {
-		setText(e.target.value);
-	}
+	// function handleText(e) {
+	// 	setText(e.target.value);
+	// }
 
-	function handleSubmit(e) {
+	// function handleSubmit(e) {
+	// 	e.preventDefault();
+	// 	console.log('SUBMIT');
+	// }
+
+	const { value, handleChange, errors, isValid } = useFormWithValidation({});
+
+	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('SUBMIT');
+		if (isValid) {
+			console.log('Success');
+		}
 	}
+
 	return (
 		<PopupWithForm
-			onSubmit={handleSubmit}
+			onSubmit={onSubmit}
 			button="Создать"
 			name="add-murm"
 			title="Замурмить мурм"
@@ -23,18 +35,17 @@ function AddMurmPopupForm({ isOpened, onClose }) {
 			onClose={onClose}
 		>
 			<input
-				value={text}
-				onChange={handleText}
+				onChange={handleChange}
 				placeholder="Введите текст"
 				id="edit-input"
-				name="profileMurmInput"
+				name="murm"
 				className="popup__input-item "
 				type="text"
 				required
 				minLength="2"
-				maxLength="40"
+				maxLength="75"
 			/>
-			<span id="add-input-error" className="error" />
+			<span className="input-error">{errors && errors['murm'] !== '' && errors['murm']}</span>
 		</PopupWithForm>
 	);
 }

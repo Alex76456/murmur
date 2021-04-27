@@ -1,21 +1,33 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useState } from 'react';
+import { useFormWithValidation } from '../../utils/Validation/Validation'
+
 
 function AvatarPopupForm({ isOpened, onClose }) {
-	const [ avatar, setAvatar ] = useState('');
+	// const [ avatar, setAvatar ] = useState('');
 
-	function handleAvatar(e) {
-		setAvatar(e.target.value);
-	}
+	// function handleAvatar(e) {
+	// 	setAvatar(e.target.value);
+	// }
 
-	function handleSubmit(e) {
+	// function handleSubmit(e) {
+	// 	e.preventDefault();
+	// 	console.log('SUBMIT');
+	// }
+
+	const { value, handleChange, errors, isValid } = useFormWithValidation({});
+
+	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('SUBMIT');
+		if (isValid) {
+			console.log('Success');
+		}
 	}
+
 	return (
 		<PopupWithForm
-			onSubmit={handleSubmit}
+			onSubmit={onSubmit}
 			button="Сохранить"
 			name="avatar"
 			title="Обновить аватар"
@@ -23,18 +35,17 @@ function AvatarPopupForm({ isOpened, onClose }) {
 			onClose={onClose}
 		>
 			<input
-				value={avatar}
-				onChange={handleAvatar}
+				onChange={handleChange}
 				placeholder="Введите ссылку"
 				id="avatar-input"
-				name="profileAvatarInput"
+				name="link"
 				className="popup__input-item"
-				type="text"
+				type="url"
 				required
 				minLength="2"
 				maxLength="40"
 			/>
-			<span id="avatar-input-error" className="error" />
+			<span className="input-error">{errors && errors['link'] !== '' && errors['link']}</span>
 		</PopupWithForm>
 	);
 }
