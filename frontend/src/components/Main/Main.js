@@ -47,8 +47,19 @@ function Main({ editClick, addClick, avatarClick, confirmClick }) {
 					})}
 				</ul>
 				{murms.length > visibleMurms && (
-					<button className="murms__more-button" type="button" onClick={showMoreMurms}>
+					<button className="murms__help-button" type="button" onClick={showMoreMurms}>
 						показать еще...
+					</button>
+				)}
+				{window.pageYOffset > 10 && (
+					<button
+						className="murms__help-button"
+						type="button"
+						onClick={() => {
+							window.scrollTo({ top: 0, behavior: 'smooth' });
+						}}
+					>
+						Вернуться
 					</button>
 				)}
 			</section>

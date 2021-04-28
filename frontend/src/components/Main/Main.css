@@ -128,7 +128,7 @@
 	gap: 15px;
 }
 
-.murms__more-button {
+.murms__help-button {
 	margin-top: 15px;
 	padding: 5px;
 	border-radius: 10px;
@@ -138,8 +138,14 @@
 	line-height: 1.1;
 	cursor: pointer;
 	transition: 0.3s ease;
+	margin-bottom: 20px;
+	outline: none;
 }
 
-.murms__more-button:hover {
+.murms__help-button:last-of-type {
+	margin-bottom: 0px;
+}
+
+.murms__help-button:hover {
 	opacity: 0.7;
 }
