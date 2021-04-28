@@ -13,7 +13,8 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'Это первый мурм, детка!'
+		text: 'Это первый мурм, детка!',
+		comments: []
 	},
 	{
 		likes: [],
@@ -21,7 +22,8 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'А это второй мурм!'
+		text: 'А это второй мурм!',
+		comments: []
 	},
 	{
 		likes: [ '607c31d9d8f37c08e0157308' ],
@@ -29,7 +31,8 @@ export const murms = [
 		name: 'Толян',
 		link: '@pryanik',
 		owner: '607c31d9d8f37c08e0157308',
-		text: 'Ну и третий мурм, хосбади!'
+		text: 'Ну и третий мурм, хосбади!',
+		comments: []
 	},
 	{
 		likes: [ '607bd8d5b078180217ddc70f', '6081f424d8f37c08e015731e' ],
@@ -37,7 +40,44 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'Это четвертый мурм, детка!'
+		text: 'Это четвертый мурм, детка!',
+		comments: []
+	},
+	{
+		likes: [ '607bd8d5b078180217ddc70f', '6081f424d8f37c08e015731e' ],
+		_id: '607bd90db078180217ddc710',
+		name: 'Васян',
+		link: '@vasya',
+		owner: '607bd8d5b078180217ddc70f',
+		text: 'Это первый мурм, детка!',
+		comments: []
+	},
+	{
+		likes: [],
+		_id: '607bd91bb078180217ddc711',
+		name: 'Васян',
+		link: '@vasya',
+		owner: '607bd8d5b078180217ddc70f',
+		text: 'А это второй мурм!',
+		comments: []
+	},
+	{
+		likes: [ '607c31d9d8f37c08e0157308' ],
+		_id: '607d7f39d8f37c08e015730e',
+		name: 'Толян',
+		link: '@pryanik',
+		owner: '607c31d9d8f37c08e0157308',
+		text: 'Ну и третий мурм, хосбади!',
+		comments: []
+	},
+	{
+		likes: [ '607bd8d5b078180217ddc70f', '6081f424d8f37c08e015731e' ],
+		_id: '607bd90db078180217ddc111',
+		name: 'Васян',
+		link: '@vasya',
+		owner: '607bd8d5b078180217ddc70f',
+		text: 'Это четвертый мурм, детка!',
+		comments: []
 	},
 	{
 		likes: [],
@@ -45,7 +85,8 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'А это пятый мурм!'
+		text: 'А это пятый мурм!',
+		comments: []
 	},
 	{
 		likes: [ '607c31d9d8f37c08e0157308' ],
@@ -53,7 +94,8 @@ export const murms = [
 		name: 'Толян',
 		link: '@pryanik',
 		owner: '607c31d9d8f37c08e0157308',
-		text: 'Ну и шестой мурм, хосбади!'
+		text: 'Ну и шестой мурм, хосбади!',
+		comments: []
 	},
 	{
 		likes: [ '607bd8d5b078180217ddc70f', '6081f424d8f37c08e015731e' ],
@@ -61,7 +103,25 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'Это седьмой мурм, детка!'
+		text: 'Это седьмой мурм, детка!',
+		comments: [
+			{
+				likes: [],
+				_id: '607bd91bb078180217ddc765',
+				name: 'Васян',
+				link: '@vasya',
+				owner: '607bd8d5b078180217ddc70f',
+				text: 'Первый комментарий!'
+			},
+			{
+				likes: [ '607c31d9d8f37c08e0157308', '607d7f39d8f37c08e0157333' ],
+				_id: '607d7f39d8f37c08e0157333',
+				name: 'Толян',
+				link: '@pryanik',
+				owner: '607c31d9d8f37c08e0157308',
+				text: 'Второй комментарий'
+			}
+		]
 	},
 	{
 		likes: [],
@@ -69,7 +129,17 @@ export const murms = [
 		name: 'Васян',
 		link: '@vasya',
 		owner: '607bd8d5b078180217ddc70f',
-		text: 'А это восьмой мурм!'
+		text: 'А это восьмой мурм!',
+		comments: [
+			{
+				likes: [ '607d7f39d8f37c08e0157333' ],
+				_id: '607d7f39d8f37c08e0157333',
+				name: 'Толян',
+				link: '@pryanik',
+				owner: '607c31d9d8f37c08e0157308',
+				text: 'Третий комментарий!'
+			}
+		]
 	},
 	{
 		likes: [ '607c31d9d8f37c08e0157666' ],
@@ -77,6 +147,24 @@ export const murms = [
 		name: 'Толян',
 		link: '@pryanik',
 		owner: '607c31d9d8f37c08e0157308',
-		text: 'Ну и девятый мурм, хосбади!'
+		text: 'Ну и девятый мурм, хосбади!',
+		comments: [
+			{
+				likes: [],
+				_id: '607bd91bb078180217ddc765',
+				name: 'Васян',
+				link: '@vasya',
+				owner: '607bd8d5b078180217ddc70f',
+				text: 'Первый комментарий!'
+			},
+			{
+				likes: [ '607c31d9d8f37c08e0157308', '607d7f39d8f37c08e0157333' ],
+				_id: '607d7f39d8f37c08e0157333',
+				name: 'Толян',
+				link: '@pryanik',
+				owner: '607c31d9d8f37c08e0157308',
+				text: 'Второй комментарий'
+			}
+		]
 	}
 ].reverse();
