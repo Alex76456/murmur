@@ -1,10 +1,9 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useState } from 'react';
-import { useFormWithValidation } from '../../utils/Validation/Validation'
+import { useFormWithValidation } from '../../utils/Validation/Validation';
 
-
-function AddMurmPopupForm({ isOpened, onClose }) {
+function AddMurmPopupForm({ isOpened, onClose, onAddMurm }) {
 	// const [ text, setText ] = useState('');
 
 	// function handleText(e) {
@@ -16,14 +15,15 @@ function AddMurmPopupForm({ isOpened, onClose }) {
 	// 	console.log('SUBMIT');
 	// }
 
-	const { value, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
-			console.log('Success');
+			console.log('Success', values.murm);
+			onAddMurm(values.murm);
 		}
-	}
+	};
 
 	return (
 		<PopupWithForm
@@ -37,7 +37,7 @@ function AddMurmPopupForm({ isOpened, onClose }) {
 			<input
 				onChange={handleChange}
 				placeholder="Введите текст"
-				id="edit-input"
+				id="add-input"
 				name="murm"
 				className="popup__input-item "
 				type="text"

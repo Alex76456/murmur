@@ -2,7 +2,7 @@ import React from 'react';
 import './Murm.css';
 import { useState } from 'react';
 
-function Murm({ murm, user, confirmClick }) {
+function Murm({ murm, user, confirmClick, onMurmLike }) {
 	const [ isOpenedCommints, setIsOpenedCommints ] = useState(false);
 	const [ commentInput, setCommentInput ] = useState('');
 
@@ -24,22 +24,18 @@ function Murm({ murm, user, confirmClick }) {
 	function handleCommentInputChange(e) {
 		setCommentInput(e.target.value);
 	}
-	/*
+
 	function handleClick() {
-		onCardClick(card);
+		confirmClick(murm);
 	}
 
 	function handleLikeClick() {
-		onCardLike(card, isLiked);
+		onMurmLike(murm, isLiked);
 	}
 
-	function handleDeleteClick() {
-		onCardDelete(card);
-	}
-*/
 	return (
 		<li className="murms__list-item">
-			<button className={murmDeleteButtonClassName} onClick={confirmClick} />
+			<button className={murmDeleteButtonClassName} onClick={handleClick} />
 			<div className="murms__owner-container">
 				<h3 className="murms__owner-name">{murm.name}</h3>
 				<p className="murms__owner-link">{murm.link}</p>
@@ -97,7 +93,7 @@ function Murm({ murm, user, confirmClick }) {
 					<button
 						className={murmLikeButtonClassName}
 						type="button"
-						/*onClick={handleLikeClick}*/
+						onClick={handleLikeClick}
 					/>
 					<p className="murms__values-number">{murm.likes.length}</p>
 				</div>
