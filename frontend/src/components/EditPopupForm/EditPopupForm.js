@@ -1,9 +1,9 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useState } from 'react';
-import { useFormWithValidation } from '../../utils/Validation/Validation'
+import { useFormWithValidation } from '../../utils/Validation/Validation';
 
-function EditPopupForm({ isOpened, onClose }) {
+function EditPopupForm({ isOpened, onClose, onUpdateUser }) {
 	// const [ name, setName ] = useState('');
 	// const [ link, setLink ] = useState('');
 
@@ -17,14 +17,15 @@ function EditPopupForm({ isOpened, onClose }) {
 	// 	e.preventDefault();
 	// 	console.log('SUBMIT');
 	// }
-	const { value, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
-			console.log('Success');
+			onUpdateUser(values);
+			//console.log(values);
 		}
-	}
+	};
 	return (
 		<PopupWithForm
 			onSubmit={onSubmit}
@@ -50,14 +51,16 @@ function EditPopupForm({ isOpened, onClose }) {
 				onChange={handleChange}
 				placeholder="Линк"
 				id="link-input"
-				name="password"
+				name="link"
 				className="popup__input-item "
 				type="text"
 				required
 				minLength="8"
 				maxLength="16"
 			/>
-			<span className="input-error">{errors && errors['password'] !== '' && errors['password']}</span>
+			<span className="input-error">
+				{errors && errors['password'] !== '' && errors['password']}
+			</span>
 		</PopupWithForm>
 	);
 }
