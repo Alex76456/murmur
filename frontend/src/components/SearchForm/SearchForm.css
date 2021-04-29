@@ -1,0 +1,31 @@
+.search__button{
+    text-decoration: none;
+    font-family: 'Arial',sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    border: 3px solid blue;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background-color: white;
+    transition: 0.3s ease;
+
+}
+.search__button:hover{
+    background-color: blue;
+    color: white;
+}
+.search__input{
+    text-decoration: none;
+    font-family: 'Arial',sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    border: 3px solid blue;
+    background-color: white;
+    border-radius: 5px 0 0 5px;
+}
