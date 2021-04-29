@@ -1,46 +1,28 @@
 const router = require('express').Router();
-
-const validator = require('validator');
-const { celebrate, Joi, CelebrateError } = require('celebrate');
-const auth = require('../middlewares/auth');
+const { celebrate, Joi } = require('celebrate');
 
 const {
   getUsers,
   getUserById,
-  patchUser,
-  patchUserAvatar,
-  getMe,
+  getUserData,
+  updateUserData,
+  updateUserAvatar,
 } = require('../controllers/users');
 
-const validateId = celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().alphanum().length(24).hex(),
-  }),
-});
-
-const validateUserPatch = celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
-  }),
-});
-
-const validateUserAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().custom((url) => {
-      if (!validator.isURL(url)) {
-        throw new CelebrateError('Неверный URL');
-      }
-      return url;
-    }),
-  }),
-});
-
-router.use(auth);
 router.get('/', getUsers);
-router.get('/me', getMe);
-router.get('/:userId', validateId, getUserById);
-router.patch('/me', validateUserPatch, patchUser);
-router.patch('/me/avatar', validateUserAvatar, patchUserAvatar);
+router.get('/me', getUserData);
+router.patch('/me', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().pattern(/[\wа-я\sё]{2,30}/i),
+    about: Joi.string().pattern(/[\wа-я\sё]{2,30}/i),
+    link: Joi.string().pattern(/^@[-a-zA-Z0-9]{1,10}/i),
+  }),
+}), updateUserData);
+router.patch('/me/avatar', celebrate({
+  body: Joi.object().keys({
+    avatar: Joi.string().pattern(/^https?:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&=\/]*)?/i),
+  }),
+}), updateUserAvatar);
+router.get('/:userId', getUserById);
 
 module.exports = router;
