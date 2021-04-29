@@ -29,11 +29,11 @@ function RegistrationPopupForm({ isOpened, onClose }) {
 
     // }
 
-    const {value , handleChange, errors , isValid} = useFormWithValidation({});
+    const { value, handleChange, errors, isValid } = useFormWithValidation({});
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if(isValid) {
+        if (isValid) {
             console.log(value);
         }
     }
@@ -42,19 +42,19 @@ function RegistrationPopupForm({ isOpened, onClose }) {
         <>
             <PopupWithForm onSubmit={onSubmit} button='Сохранить' name='registration' title='Регистрация'
                 isOpened={isOpened} onClose={onClose}>
-                <input  onChange={handleChange} placeholder="Имя" id="input-name"
+                <input onChange={handleChange} placeholder="Почта"
+                    id='registration-email-input' name='email' className="popup__input-item popup__input-item_el_email" type="email"
+                    required minLength="2" maxLength="40" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                <span className="input-error">{errors && errors['email'] !== '' && errors['email']}</span>
+                <input onChange={handleChange} placeholder="Имя" id="input-name"
                     name='name' className="popup__input-item popup__input-item_el_name" type="text"
                     required minLength="2" maxLength="40" />
                 <span className="input-error">{errors && errors['name'] !== '' && errors['name']}</span>
-                <input  onChange={handleChange} placeholder="Пароль"
+                <input onChange={handleChange} placeholder="Пароль"
                     id='registration-password-input' name='password' className="popup__input-item popup__input-item_el_password" type="password"
                     required minLength="8" maxLength="16" />
                 <span className="input-error">{errors && errors['password'] !== '' && errors['password']}</span>
 
-                <input  onChange={handleChange} placeholder="Почта"
-                    id='registration-email-input' name='email' className="popup__input-item popup__input-item_el_email" type="email"
-                    required minLength="2" maxLength="40" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
-                <span className="input-error">{errors && errors['email'] !== '' && errors['email']}</span>
             </PopupWithForm>
         </>
     )

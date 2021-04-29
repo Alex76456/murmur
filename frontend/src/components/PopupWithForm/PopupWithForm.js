@@ -3,6 +3,7 @@ import './PopupWithForm.css'
 
 function PopupWithForm(props) {
 
+
     return (
         <section className={`popup popup_type_${props.name} ${props.isOpened && 'popup_opened'}`}>
             <form onSubmit={props.onSubmit} name={`${props.name}-popup`} className="popup__container" noValidate>

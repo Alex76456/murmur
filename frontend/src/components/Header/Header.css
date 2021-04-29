@@ -1,5 +1,4 @@
 .header{
-    border-bottom: 1px solid rgba(84, 84, 84, .7);
     width: 100%;
     margin:0 auto;
     padding: 0;
@@ -17,9 +16,16 @@
     line-height: 22px;
     color: #000;
     margin-right: 15px;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: 0.3s ease;
+
 }
 .header__link:hover{
-    color: #ccc;
+    color:white;
+    border: 3px solid blue;
+    background-color: blue;
 }
 
 .header__container_logo{
@@ -41,7 +47,7 @@
     font-family: 'Arial',sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 36px;
+    font-size: 48px;
     line-height: 22px;
     color: #000;
     margin-right: 15px;

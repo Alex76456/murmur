@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
 import './Header.css';
-
+import SearchForm from '../SearchForm/SearchForm';
 
 function Header(props) {
     const [loggedIn,setLoggedIn] = React.useState(null);
@@ -19,6 +19,7 @@ function Header(props) {
                 <img src={logo} alt="Логотип 'Murmur' " className="header__logo" />
                 <span className="header__title">Murmur</span>
                 </div>
+                <SearchForm />
                 <div className="header__container_nav">
                 {loggedIn && (<div className='header__nav'>
                 <span className='header__username'>{userName}</span>

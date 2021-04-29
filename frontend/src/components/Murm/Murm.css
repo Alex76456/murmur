@@ -5,11 +5,10 @@
 }
 
 .murms__list-item {
-	background-color: rgb(229, 231, 238);
 	padding: 15px;
-	border-radius: 10px;
+	border-radius: 10px 10px 0 0;
 	width: 100%;
-	border: blue 2px solid;
+	border-bottom: blue 4px dashed;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -35,13 +34,14 @@
 	margin: 0;
 	font-size: 20px;
 	line-height: 1.1;
+	color:blue;
+
 }
 
 .murms__delete-button {
 	background-image: url('../../images/trash-icon.png');
 	background-position: center;
 	background-size: contain;
-	background-color: rgba(0, 0, 0, 0);
 	position: absolute;
 	top: 18px;
 	right: 15px;
@@ -62,6 +62,7 @@
 }
 
 .murms__buttons-container {
+
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
@@ -70,6 +71,7 @@
 }
 
 .murms__button-container {
+	background-color: white;
 	padding: 3px;
 	display: flex;
 	justify-content: flex-start;
@@ -86,13 +88,13 @@
 .murms__caption-like {
 	background-image: url('../../images/hearth.svg');
 	background-position: center;
-	background-color: rgb(229, 231, 238);
 	cursor: pointer;
 	width: 20.76px;
 	height: 18.13px;
 	transition: 0.3s ease;
 	border-style: none;
 	outline: none;
+	background-color:white;
 }
 
 .murms__caption-like:hover {
@@ -107,13 +109,13 @@
 	background-image: url('../../images/comments.png');
 	background-size: contain;
 	background-position: center;
-	background-color: rgb(229, 231, 238);
 	cursor: pointer;
 	width: 20.76px;
 	height: 18.13px;
 	transition: 0.3s ease;
 	border-style: none;
 	outline: none;
+	background-color:white;
 }
 
 .murms__comment-button:hover {

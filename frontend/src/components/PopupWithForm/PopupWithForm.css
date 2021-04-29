@@ -34,8 +34,23 @@
 }
 .popup__button_add{
     margin: 10px auto;
+    text-decoration: none;
+    font-family: 'Arial',sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    border: none;
+    background-color: #fff;
+    transition: 0.3s ease;
 }
-
+.popup__button_add:hover{
+    background-color:blue;
+    border: 3px solid blue;
+    border-radius: 5px;
+    color: white;
+    }
 
 .popup__title{
     color:#fff;
@@ -104,7 +119,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-     
+        min-width: 320px;
     }
 
     .input-error{

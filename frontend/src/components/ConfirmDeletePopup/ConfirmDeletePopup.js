@@ -7,6 +7,7 @@ function ConfirmDeletePopup({ isOpened, onClose }) {
 		console.log('SUBMIT');
 	}
 	return (
+		<>
 		<PopupWithForm
 			onSubmit={handleSubmit}
 			button="Да"
@@ -15,6 +16,7 @@ function ConfirmDeletePopup({ isOpened, onClose }) {
 			isOpened={isOpened}
 			onClose={onClose}
 		/>
+		</>
 	);
 }
 
