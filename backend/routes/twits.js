@@ -22,10 +22,12 @@ const validateTwitComment = celebrate({
 const validateTwitCommentId = celebrate({
   params: Joi.object().keys({
     twitId: Joi.string().alphanum().length(24).hex(),
+    commentId: Joi.string().alphanum().length(24).hex(),
   }),
 });
 
 const {
+  // getResponse,
   getTwits,
   createTwit,
   editTwit,
@@ -47,7 +49,7 @@ router.delete('/:twitId/likes', validateTwitId, dislikeTwit);
 
 router.get('/:twitId/comments', validateTwitId, getTwitComments);
 router.post('/:twitId/comments', validateTwitId, validateTwitComment, createTwitComment);
-router.patch('/:twitId/comments/commentId', validateTwitId, validateTwitComment, validateTwitCommentId, editTwitComment);
-router.delete('/:twitId/comments/commentId', validateTwitId, validateTwitComment, validateTwitCommentId, deleteTwitComment);
+router.patch('/:twitId/comments/:commentId', validateTwitCommentId, validateTwitComment, editTwitComment);
+router.delete('/:twitId/comments/:commentId', validateTwitCommentId, validateTwitComment, deleteTwitComment);
 
 module.exports = router;

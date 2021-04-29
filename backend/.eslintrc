@@ -11,6 +11,12 @@
     ],
     "no-useless-escape": [
       "off"
+    ],
+    "no-useless-escape": [
+      "error",
+      {
+        "code": 180
+      }
     ]
   }
 }

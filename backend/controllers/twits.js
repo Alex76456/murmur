@@ -3,6 +3,10 @@ const Comment = require('../models/comment');
 const errorHandler = require('../errors/error-handler');
 const ForbiddenError = require('../errors/forbidden-error');
 
+module.exports.getResponse = (req, res) => {
+  res.send({ message: 'Ответ получен' });
+};
+
 module.exports.getTwits = (req, res, next) => {
   Twit.find({})
     .orFail()
@@ -139,8 +143,9 @@ module.exports.createTwitComment = (req, res, next) => {
   Comment.create({ text, owner: req.user._id, parentTwit: twitId })
     .then((comment) => {
       console.log('createTwitComment');
+      console.log(comment);
       Twit.findByIdAndUpdate(
-        req.params.twitId,
+        twitId,
         { $push: { comments: comment } },
         { new: true },
       )
@@ -165,17 +170,17 @@ module.exports.createTwitComment = (req, res, next) => {
 module.exports.editTwitComment = (req, res, next) => {
   const { twitId, commentId } = req.params;
   const { text } = req.body;
+  console.log(commentId);
   Comment.findById(commentId)
     .orFail()
     .then((comment) => {
-      if (comment.parentTwit === twitId && comment.owner.equals(req.user._id)) {
+      if (comment.parentTwit.toString() === twitId.toString() && comment.owner.equals(req.user._id)) {
         Twit.findByIdAndUpdate(
           twitId,
           { $pull: { comments: comment } },
           { new: true },
         )
           .orFail()
-          .then(res.send({ data: comment }))
           .catch((err) => {
             errorHandler(err, next, {
               CastErrorMessage: 'Переданы некорректные данные',
@@ -220,7 +225,7 @@ module.exports.editTwitComment = (req, res, next) => {
     .catch((err) => {
       errorHandler(err, next, {
         CastErrorMessage: 'Переданы некорректные данные',
-        DocumentNotFoundErrorMessage: 'Комментарий с указанным id не найден',
+        DocumentNotFoundErrorMessage: 'Комментарий с указанным id не найден ёп',
       });
     });
 };
@@ -230,7 +235,7 @@ module.exports.deleteTwitComment = (req, res, next) => {
   Comment.findByIdAndRemove(commentId)
     .orFail()
     .then((comment) => {
-      if (comment.parentTwit === twitId && comment.owner.equals(req.user._id)) {
+      if (comment.parentTwit.toString() === twitId.toString() && comment.owner.equals(req.user._id)) {
         Twit.findByIdAndUpdate(
           twitId,
           { $pull: { comments: comment } },

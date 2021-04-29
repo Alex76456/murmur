@@ -18,8 +18,7 @@ const twitSchema = new mongoose.Schema({
     default: [],
   }],
   comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'comment',
+    type: Object,
     default: [],
   }],
   createdAt: {
