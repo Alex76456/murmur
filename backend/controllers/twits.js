@@ -132,8 +132,9 @@ module.exports.getTwitComments = (req, res, next) => {
 
 module.exports.createTwitComment = (req, res, next) => {
 	const { twitId } = req.params;
-	const { text } = req.body;
-	Comment.create({ text, owner: req.user._id, parentTwit: twitId })
+	const { text, name } = req.body;
+	/*
+	Comment.create({ text, name, owner: req.user._id, parentTwit: twitId })
 		.then((comment) => {
 			console.log('createTwitComment');
 			console.log(comment);
@@ -151,6 +152,17 @@ module.exports.createTwitComment = (req, res, next) => {
 			errorHandler(err, next, {
 				CastErrorMessage: 'Переданы некорректные данные',
 				ValidationErrorMessage: 'Ошибка валидации данных'
+			});
+		});
+
+    */
+	Twit.findByIdAndUpdate(twitId, { $addToSet: { comments: { text, name } } }, { new: true })
+		.orFail()
+		.then((twit) => res.send(twit))
+		.catch((err) => {
+			errorHandler(err, next, {
+				CastErrorMessage: 'Переданы некорректные данные',
+				DocumentNotFoundErrorMessage: 'Твит с указанным id не найден'
 			});
 		});
 };

@@ -12,7 +12,8 @@ function Main({
 	confirmClick,
 	onMurmLike,
 	curUser,
-	isloggedIn
+	isloggedIn,
+	onCommentSubmit
 }) {
 	const [ visibleMurms, setVisibleMurms ] = useState(3);
 
@@ -55,6 +56,7 @@ function Main({
 									user={curUser}
 									confirmClick={confirmClick}
 									onMurmLike={onMurmLike}
+									onCommentSubmit={onCommentSubmit}
 								/>
 							)
 						);
