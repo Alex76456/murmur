@@ -2,7 +2,7 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation';
 
-function EditPopupForm({ isOpened, onClose, onUpdateUser }) {
+function EditPopupForm({ isOpened, onClose, onUpdateUser, onEscClose }) {
 	// const [ name, setName ] = useState('');
 	// const [ link, setLink ] = useState('');
 
@@ -33,6 +33,7 @@ function EditPopupForm({ isOpened, onClose, onUpdateUser }) {
 			title="Редактировать профиль"
 			isOpened={isOpened}
 			onClose={onClose}
+			onEscClose={onEscClose}
 		>
 			<input
 				onChange={handleChange}

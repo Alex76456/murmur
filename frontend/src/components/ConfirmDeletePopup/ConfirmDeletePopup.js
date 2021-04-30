@@ -1,7 +1,7 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 
-function ConfirmDeletePopup({ isOpened, onClose, onDeleteCard }) {
+function ConfirmDeletePopup({ isOpened, onClose, onDeleteCard, onEscClose }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		onDeleteCard();
@@ -14,6 +14,7 @@ function ConfirmDeletePopup({ isOpened, onClose, onDeleteCard }) {
 			title="Удалить мурм?"
 			isOpened={isOpened}
 			onClose={onClose}
+			onEscClose={onEscClose}
 		/>
 	);
 }

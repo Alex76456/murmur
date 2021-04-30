@@ -209,6 +209,12 @@ function App() {
 		setIsConfirmOpened(false);
 	}
 
+	function handleEscClose(e) {
+		if (e.target.classList.contains('popup')) {
+			closeAllPopups();
+		}
+	}
+
 	React.useEffect(() => {
 		const jwt = localStorage.getItem('jwt');
 		api.getMurms().then((r) => {
@@ -250,31 +256,37 @@ function App() {
 					handleRegister={handleRegister}
 					isOpened={isRegisterOpened}
 					onClose={closeAllPopups}
+					onEscClose={handleEscClose}
 				/>
 				<LoginPopupForm
 					handleLogin={handleLogin}
 					isOpened={isLoginOpened}
 					onClose={closeAllPopups}
+					onEscClose={handleEscClose}
 				/>
 				<EditPopupForm
 					isOpened={isEditOpened}
 					onClose={closeAllPopups}
 					onUpdateUser={handleUpdateUser}
+					onEscClose={handleEscClose}
 				/>
 				<AddMurmPopupForm
 					isOpened={isAddOpened}
 					onClose={closeAllPopups}
 					onAddMurm={handleAddMurmSubmit}
+					onEscClose={handleEscClose}
 				/>
 				<AvatarPopupForm
 					isOpened={isAvatarOpened}
 					onClose={closeAllPopups}
 					onUpdateAvatar={handleUpdateAvatar}
+					onEscClose={handleEscClose}
 				/>
 				<ConfirmDeletePopup
 					isOpened={isConfirmOpened}
 					onClose={closeAllPopups}
 					onDeleteCard={handleMurmCardSubmit}
+					onEscClose={handleEscClose}
 				/>
 			</div>
 		</div>

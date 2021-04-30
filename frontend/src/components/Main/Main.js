@@ -24,9 +24,14 @@ function Main({
 	return (
 		<main className="main">
 			<section className="profile">
-				<div className="profile__avatar-container" onClick={avatarClick}>
+				{isloggedIn ? (
+					<div className="profile__avatar-container" onClick={avatarClick}>
+						<img className="profile__avatar" src={curUser.avatar} alt="аватар" />
+					</div>
+				) : (
 					<img className="profile__avatar" src={curUser.avatar} alt="аватар" />
-				</div>
+				)}
+
 				<div className="profile__info">
 					<h2 className="profile__title">{curUser.name}</h2>
 
