@@ -2,7 +2,7 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation';
 
-function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar }) {
+function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar, onEscClose }) {
 	// const [ avatar, setAvatar ] = useState('');
 
 	// function handleAvatar(e) {
@@ -31,6 +31,7 @@ function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar }) {
 			title="Обновить аватар"
 			isOpened={isOpened}
 			onClose={onClose}
+			onEscClose={onEscClose}
 		>
 			<input
 				onChange={handleChange}
