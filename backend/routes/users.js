@@ -16,7 +16,6 @@ router.patch(
 	celebrate({
 		body: Joi.object().keys({
 			name: Joi.string().pattern(/[\wа-я\sё]{2,30}/i),
-			//about: Joi.string().pattern(/[\wа-я\sё]{2,30}/i),
 			link: Joi.string().pattern(/^@[-a-zA-Z0-9]{1,10}/i)
 		})
 	}),

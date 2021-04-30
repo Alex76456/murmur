@@ -3,32 +3,15 @@ import React from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation'
 
 
-function LoginPopupForm({ isOpened, onClose }) {
-    // const [email, setEmail] = React.useState('');
-    // const [password, setPassword] = React.useState('');
+function LoginPopupForm({ isOpened, onClose ,handleLogin}) {
 
-    // function handlePassword(e) {
-    //     setPassword(e.target.value);
-    // }
-    // function handleEmail(e) {
-    //     setEmail(e.target.value);
-    // }
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     console.log('SUBMIT')
-    //     // onRegistration({
-    //     //     profileNameInput: name,
-    //     //     profilePassword: password,
-    //     //     profileEmail: email,
-    //     // });
-
-    // }
-    const { value, handleChange, errors, isValid } = useFormWithValidation({});
+    const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (isValid) {
-            console.log('Success');
+            console.log(values)
+          handleLogin(values)
         }
     }
 

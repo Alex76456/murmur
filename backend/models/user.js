@@ -11,15 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    required: true,
     unique: true,
-    validate: {
-      validator(link) {
-        const regex = /^@[-a-zA-Z0-9]{1,10}/i;
-        return regex.test(link);
-      },
-      message: 'Некорректный никнейм',
-    },
   },
   avatar: {
     type: String,
@@ -36,12 +28,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    validate: {
-      validator(email) {
-        return validator.isEmail(email);
-      },
-      message: 'Некорректный email',
-    },
   },
   password: {
     type: String,

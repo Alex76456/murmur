@@ -4,37 +4,16 @@ import { useFormWithValidation } from '../../utils/Validation/Validation'
 
 
 
-function RegistrationPopupForm({ isOpened, onClose }) {
-    // const [email, setEmail] = React.useState('');
-    // const [password, setPassword] = React.useState('');
-    // const [name, setName] = React.useState('');
+function RegistrationPopupForm({isOpened, onClose,handleRegister}) {
 
-    // function handleName(e) {
-    //     setName(e.target.value);
-    // }
-    // function handlePassword(e) {
-    //     setPassword(e.target.value);
-    // }
-    // function handleEmail(e) {
-    //     setEmail(e.target.value);
-    // }
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     console.log('SUBMIT')
-    //     // onRegistration({
-    //     //     profileNameInput: name,
-    //     //     profilePassword: password,
-    //     //     profileEmail: email,
-    //     // });
 
-    // }
-
-    const { value, handleChange, errors, isValid } = useFormWithValidation({});
+    const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
     const onSubmit = (e) => {
         e.preventDefault();
         if (isValid) {
-            console.log(value);
+            console.log(values)
+            handleRegister(values);
         }
     }
 
@@ -50,6 +29,10 @@ function RegistrationPopupForm({ isOpened, onClose }) {
                     name='name' className="popup__input-item popup__input-item_el_name" type="text"
                     required minLength="2" maxLength="40" />
                 <span className="input-error">{errors && errors['name'] !== '' && errors['name']}</span>
+                <input onChange={handleChange} placeholder="Логин" id="input-login"
+                    name='link' className="popup__input-item popup__input-item_el_link" type="text"
+                    required minLength="2" maxLength="40" />
+                <span className="input-error">{errors && errors['link'] !== '' && errors['link']}</span>
                 <input onChange={handleChange} placeholder="Пароль"
                     id='registration-password-input' name='password' className="popup__input-item popup__input-item_el_password" type="password"
                     required minLength="8" maxLength="16" />
