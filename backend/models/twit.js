@@ -12,6 +12,18 @@ const twitSchema = new mongoose.Schema({
 		minlength: 2,
 		maxlength: 140
 	},
+	name: {
+		type: String,
+		required: true,
+		minlength: 2,
+		maxlength: 140
+	},
+	link: {
+		type: String,
+		required: true,
+		minlength: 2,
+		maxlength: 140
+	},
 	likes: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

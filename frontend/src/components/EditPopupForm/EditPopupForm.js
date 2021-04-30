@@ -1,6 +1,5 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation';
 
 function EditPopupForm({ isOpened, onClose, onUpdateUser }) {

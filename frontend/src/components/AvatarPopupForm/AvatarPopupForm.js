@@ -1,6 +1,5 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation';
 
 function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar }) {
@@ -42,7 +41,6 @@ function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar }) {
 				type="url"
 				required
 				minLength="2"
-				maxLength="40"
 			/>
 			<span className="input-error">{errors && errors['link'] !== '' && errors['link']}</span>
 		</PopupWithForm>

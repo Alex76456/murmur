@@ -4,7 +4,16 @@ import Murm from '../Murm/Murm';
 //import { /*murms, curUser */} from '../../data/data';
 import { useState } from 'react';
 
-function Main({ murms, editClick, addClick, avatarClick, confirmClick, onMurmLike, curUser }) {
+function Main({
+	murms,
+	editClick,
+	addClick,
+	avatarClick,
+	confirmClick,
+	onMurmLike,
+	curUser,
+	isloggedIn
+}) {
 	const [ visibleMurms, setVisibleMurms ] = useState(3);
 
 	function showMoreMurms() {
@@ -22,13 +31,17 @@ function Main({ murms, editClick, addClick, avatarClick, confirmClick, onMurmLik
 
 					<p className="profile__subtitle">{curUser.link}</p>
 				</div>
-				<button className="profile__edit-button" type="button" onClick={editClick}>
-					редактировать
-				</button>
+				{isloggedIn && (
+					<button className="profile__edit-button" type="button" onClick={editClick}>
+						редактировать
+					</button>
+				)}
 
-				<button className="profile__add-button" type="button" onClick={addClick}>
-					мурм
-				</button>
+				{isloggedIn && (
+					<button className="profile__add-button" type="button" onClick={addClick}>
+						мурм
+					</button>
+				)}
 			</section>
 
 			<section className="murms">

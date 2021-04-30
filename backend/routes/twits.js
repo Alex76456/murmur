@@ -3,7 +3,9 @@ const { celebrate, Joi } = require('celebrate');
 
 const validateTwit = celebrate({
 	body: Joi.object().keys({
-		text: Joi.string().required().min(2).max(140)
+		text: Joi.string().required().min(2).max(140),
+		name: Joi.string().required().min(2).max(140),
+		link: Joi.string().required().min(2).max(140)
 	})
 });
 

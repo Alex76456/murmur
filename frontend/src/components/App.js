@@ -11,24 +11,23 @@ import AddMurmPopupForm from './AddMurmPopupForm/AddMurmPopupForm';
 import AvatarPopupForm from './AvatarPopupForm/AvatarPopupForm';
 import ConfirmDeletePopup from './ConfirmDeletePopup/ConfirmDeletePopup';
 import api from '../utils/api';
-import {testUser,murmsList} from '../data/data';
+import { testUser /*murmsList */ } from '../data/data';
 import * as auth from '../utils/auth';
 function App() {
-	const [currentUser, setCurrentUser] = useState({});
-	const [murms, setMurms] = useState([]);
-	const [loggedIn, setLoggedIn] = React.useState(null);
-	const [registerState, setRegisterState] = React.useState(false);
-	const [userName, setUsername] = React.useState('');
+	const [ currentUser, setCurrentUser ] = useState({});
+	const [ murms, setMurms ] = useState([]);
+	const [ loggedIn, setLoggedIn ] = React.useState(null);
+	const [ registerState, setRegisterState ] = React.useState(false);
+	const [ userName, setUsername ] = React.useState('');
 
-	const [isRegisterOpened, setIsRegisterOpened] = useState(false);
-	const [isLoginOpened, setIsLoginOpened] = useState(false);
-	const [isEditOpened, setIsEditOpened] = useState(false);
-	const [isAddOpened, setIsAddOpened] = useState(false);
-	const [isAvatarOpened, setIsAvatarOpened] = useState(false);
-	const [isConfirmOpened, setIsConfirmOpened] = useState(false);
+	const [ isRegisterOpened, setIsRegisterOpened ] = useState(false);
+	const [ isLoginOpened, setIsLoginOpened ] = useState(false);
+	const [ isEditOpened, setIsEditOpened ] = useState(false);
+	const [ isAddOpened, setIsAddOpened ] = useState(false);
+	const [ isAvatarOpened, setIsAvatarOpened ] = useState(false);
+	const [ isConfirmOpened, setIsConfirmOpened ] = useState(false);
 
-	const [murmToDelete, setMurmToDelete] = useState({});
-
+	const [ murmToDelete, setMurmToDelete ] = useState({});
 
 	function handleMurmLike(murm, isLiked) {
 		(!isLiked ? api.setLikeMurm(murm._id) : api.deleteLikeMurm(murm._id))
@@ -67,9 +66,9 @@ function App() {
 
 	function handleAddMurmSubmit(inputsValues) {
 		api
-			.setNewMurm(inputsValues)
+			.setNewMurm(inputsValues, currentUser)
 			.then((newMurm) => {
-				setMurms([newMurm, ...murms]);
+				setMurms([ newMurm, ...murms ]);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -108,63 +107,68 @@ function App() {
 	}
 
 	function handleRegister(data) {
-		auth.register(data)
+		auth
+			.register(data)
 			.then((res) => {
-				console.log(res)
+				console.log(res);
 				if (res) {
 					setRegisterState(false);
 					closeAllPopups();
 				} else {
 					setRegisterState(true);
 				}
-
 			})
 			.catch((err) => {
 				console.log(err);
-			})
+			});
 	}
 
 	function handleLogin(data) {
-		auth.authorize(data)
+		auth
+			.authorize(data)
 			.then((res) => {
 				if (res.token) {
-					console.log(data)
+					console.log(data);
 					localStorage.setItem('jwt', res.token);
 					setLoggedIn(true);
 					setUsername(data.email);
 					setCurrentUser(data);
 					closeAllPopups();
-					
-
 				} else {
 					setLoggedIn(false);
 					setRegisterState(false);
 				}
 			})
-
 			.catch((err) => {
 				console.log(err);
-			})
+			});
 	}
 	function handleLogout() {
 		localStorage.removeItem('jwt');
 		setLoggedIn(false);
 		setCurrentUser(testUser);
-
 	}
 	function handleTokenCheck(jwt) {
-		auth.checkToken(jwt)
-			.then((res) => {
-				setUsername(res.email)
-				setCurrentUser(res);
-				setMurms(murmsList);
-				api.getMurms();
-				if (res) {
-					setLoggedIn(true);
-				}
-			})
+		auth.checkToken(jwt).then((res) => {
+			setUsername(res.email);
+			//console.log(res);
+			setCurrentUser(res);
 
+			if (res) {
+				setLoggedIn(true);
+			}
+		});
 	}
+
+	React.useEffect(
+		() => {
+			if (loggedIn) {
+				const jwt = localStorage.getItem('jwt');
+				handleTokenCheck(jwt);
+			}
+		},
+		[ loggedIn ]
+	);
 
 	function handleRegisterClick() {
 		setIsRegisterOpened(true);
@@ -192,24 +196,31 @@ function App() {
 	}
 
 	React.useEffect(() => {
-        const jwt = localStorage.getItem('jwt');
-        if (jwt) {
+		const jwt = localStorage.getItem('jwt');
+		api.getMurms().then((r) => {
+			setMurms(r);
+		});
+		if (jwt) {
 			handleTokenCheck(jwt);
-        } else {
+		} else {
 			setCurrentUser(testUser);
 		}
-        // eslint-disable-next-line
+		// eslint-disable-next-line
 	}, []);
 
-	
 	return (
 		<div className="root">
 			<div className="page">
 				<Header
-					handleLogout={handleLogout} userName={userName}
-					state={loggedIn} registerState={registerState}
-					registrationClick={handleRegisterClick} loginClick={handleLoginClick} />
+					handleLogout={handleLogout}
+					userName={userName}
+					state={loggedIn}
+					registerState={registerState}
+					registrationClick={handleRegisterClick}
+					loginClick={handleLoginClick}
+				/>
 				<Main
+					isloggedIn={loggedIn}
 					murms={murms}
 					curUser={currentUser}
 					editClick={handleEditClick}
@@ -220,8 +231,16 @@ function App() {
 				/>
 				{/* {!loggedIn && <Footer />} */}
 				<Footer />
-				<RegistrationPopupForm handleRegister={handleRegister} isOpened={isRegisterOpened} onClose={closeAllPopups} />
-				<LoginPopupForm handleLogin={handleLogin} isOpened={isLoginOpened} onClose={closeAllPopups} />
+				<RegistrationPopupForm
+					handleRegister={handleRegister}
+					isOpened={isRegisterOpened}
+					onClose={closeAllPopups}
+				/>
+				<LoginPopupForm
+					handleLogin={handleLogin}
+					isOpened={isLoginOpened}
+					onClose={closeAllPopups}
+				/>
 				<EditPopupForm
 					isOpened={isEditOpened}
 					onClose={closeAllPopups}

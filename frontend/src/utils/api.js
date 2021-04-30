@@ -19,7 +19,7 @@ class Api {
 		}).then(this._getResponse);
 	}
 
-	setNewMurm(text) {
+	setNewMurm(text, user) {
 		return fetch(`${this._url}/twits`, {
 			method: 'POST',
 			headers: {
@@ -27,7 +27,9 @@ class Api {
 				'Content-type': 'application/json'
 			},
 			body: JSON.stringify({
-				text: text
+				text: text,
+				name: user.name,
+				link: user.link
 			})
 		}).then(this._getResponse);
 	}
