@@ -10,6 +10,7 @@ function Header(props) {
     function logOut(){
         localStorage.removeItem('jwt');
         setLoggedIn(false);
+        setUserName('');
     }
     return (
         <>

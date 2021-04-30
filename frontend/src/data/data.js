@@ -6,7 +6,7 @@ export const testUser = {
 		'http://sun9-20.userapi.com/impf/6fMvMYimCizkrkuu3J2kxmhSNFBG527eDdpxtw/5_W3AOyaePo.jpg?size=960x651&quality=96&proxy=1&sign=60ccc3506cd000b53c36cfa635035129&c_uniq_tag=Rt_H9HOb4LdM66_3x4uLEo40O4LL3zUyMzqdxDo_hnw&type=album'
 };
 
-export const murms = [
+export const murmsList = [
 	{
 		likes: [ '607bd8d5b078180217ddc70f', '6081f424d8f37c08e015731e' ],
 		_id: '607bd90db078180217ddc710',
