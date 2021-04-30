@@ -15,7 +15,7 @@ const { PORT = 3003 } = process.env;
 
 const { getTwits } = require('./controllers/twits');
 
-const whitelist = [ 'http://localhost:3000' ];
+const whitelist = [ 'http://localhost:3000',['http://localhost:3000/#/'] ];
 const corsOptions = {
 	origin(origin, callback) {
 		if (whitelist.indexOf(origin) !== -1 || !origin) {

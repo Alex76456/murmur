@@ -10,31 +10,27 @@ import EditPopupForm from './EditPopupForm/EditPopupForm';
 import AddMurmPopupForm from './AddMurmPopupForm/AddMurmPopupForm';
 import AvatarPopupForm from './AvatarPopupForm/AvatarPopupForm';
 import ConfirmDeletePopup from './ConfirmDeletePopup/ConfirmDeletePopup';
+import {murms} from '../data/data';
 import api from '../utils/api';
-
+import * as auth from '../utils/auth';
 function App() {
-	const [ currentUser, setCurrentUser ] = useState({});
-	const [ murms, setMurms ] = useState([]);
+	const [currentUser, setCurrentUser] = useState({});
+	const [murms, setMurms] = useState([]);
+	const [loggedIn, setLoggedIn] = React.useState(null);
+	const [isAlertPopupOpened, setIsAlertPopupOpened] = React.useState(false);
+	const [registerStatus, setRegisterStatus] = React.useState(false)
+	const [registerState, setRegisterState] = React.useState(false);
+	const [userName, setUsername] = React.useState('');
 
-	const [ isRegisterOpened, setIsRegisterOpened ] = useState(false);
-	const [ isLoginOpened, setIsLoginOpened ] = useState(false);
-	const [ isEditOpened, setIsEditOpened ] = useState(false);
-	const [ isAddOpened, setIsAddOpened ] = useState(false);
-	const [ isAvatarOpened, setIsAvatarOpened ] = useState(false);
-	const [ isConfirmOpened, setIsConfirmOpened ] = useState(false);
+	const [isRegisterOpened, setIsRegisterOpened] = useState(false);
+	const [isLoginOpened, setIsLoginOpened] = useState(false);
+	const [isEditOpened, setIsEditOpened] = useState(false);
+	const [isAddOpened, setIsAddOpened] = useState(false);
+	const [isAvatarOpened, setIsAvatarOpened] = useState(false);
+	const [isConfirmOpened, setIsConfirmOpened] = useState(false);
 
-	const [ murmToDelete, setMurmToDelete ] = useState({});
+	const [murmToDelete, setMurmToDelete] = useState({});
 
-	useEffect(() => {
-		Promise.all([ api.getUser(), api.getMurms() ])
-			.then(([ userData, murmsData ]) => {
-				setCurrentUser(userData);
-				setMurms(murmsData);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	}, []);
 
 	function handleMurmLike(murm, isLiked) {
 		(!isLiked ? api.setLikeMurm(murm._id) : api.deleteLikeMurm(murm._id))
@@ -75,7 +71,7 @@ function App() {
 		api
 			.setNewMurm(inputsValues)
 			.then((newMurm) => {
-				setMurms([ newMurm, ...murms ]);
+				setMurms([newMurm, ...murms]);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -113,6 +109,62 @@ function App() {
 			});
 	}
 
+	function handleRegister(data) {
+		auth.register(data)
+			.then((res) => {
+				console.log(res)
+				if (res) {
+					setIsAlertPopupOpened(true);
+					setRegisterStatus(true);
+					setRegisterState(false);
+				} else {
+					setIsAlertPopupOpened(true);
+					setRegisterStatus(false);
+					setRegisterState(true);
+				}
+
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+	}
+
+	function handleLogin(data) {
+		auth.authorize(data)
+			.then((res) => {
+				if (res.token) {
+					console.log(data)
+					localStorage.setItem('jwt', res.token);
+					setLoggedIn(true);
+					setUsername(data.email);
+
+				} else {
+					setLoggedIn(false);
+					setIsAlertPopupOpened(true);
+					setRegisterStatus(false);
+					setRegisterState(false);
+				}
+			})
+
+			.catch((err) => {
+				console.log(err);
+			})
+	}
+	function handleLogout() {
+		localStorage.removeItem('jwt');
+		setLoggedIn(false);
+	}
+	function handleTokenCheck(jwt) {
+		auth.checkToken(jwt)
+			.then((res) => {
+				setUsername(res.email)
+				if (res) {
+					setLoggedIn(true);
+				}
+			})
+
+	}
+
 	function handleRegisterClick() {
 		setIsRegisterOpened(true);
 	}
@@ -137,10 +189,33 @@ function App() {
 		setIsAvatarOpened(false);
 		setIsConfirmOpened(false);
 	}
+
+	useEffect(() => {
+		Promise.all([api.getUser(), api.getMurms()])
+			.then(([testUser, murms]) => {
+				setCurrentUser(testUser);
+				setMurms(murms);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}, []);
+	React.useEffect(() => {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            handleTokenCheck(jwt);
+
+        }
+        // eslint-disable-next-line
+	}, []);
+	
 	return (
 		<div className="root">
 			<div className="page">
-				<Header registrationClick={handleRegisterClick} loginClick={handleLoginClick} />
+				<Header
+					handleLogout={handleLogout} userName={userName}
+					state={loggedIn} registerState={registerState}
+					registrationClick={handleRegisterClick} loginClick={handleLoginClick} />
 				<Main
 					murms={murms}
 					curUser={currentUser}
@@ -152,8 +227,8 @@ function App() {
 				/>
 				{/* {!loggedIn && <Footer />} */}
 				<Footer />
-				<RegistrationPopupForm isOpened={isRegisterOpened} onClose={closeAllPopups} />
-				<LoginPopupForm isOpened={isLoginOpened} onClose={closeAllPopups} />
+				<RegistrationPopupForm handleRegister={handleRegister} isOpened={isRegisterOpened} onClose={closeAllPopups} />
+				<LoginPopupForm handleLogin={handleLogin} isOpened={isLoginOpened} onClose={closeAllPopups} />
 				<EditPopupForm
 					isOpened={isEditOpened}
 					onClose={closeAllPopups}

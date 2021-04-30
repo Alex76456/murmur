@@ -68,7 +68,7 @@ module.exports.createUser = (req, res, next) => {
 		.catch((err) => {
 			errorHandler(err, next, {
 				ValidationErrorMessage: 'Ошибка валидации данных',
-				MongoDuplicateEmailErrorMessage: 'Пользователь с таким Email уже зарегистрирован'
+				MongoDuplicateEmailErrorMessage: 'Пользователь с таким Email или Логин уже зарегистрирован'
 			});
 		});
 };
