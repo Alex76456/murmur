@@ -3,22 +3,20 @@ import './App.css';
 import Header from './Header/Header';
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
-import { useState, useEffect } from 'react'; // <--  хуки лучше так импортировать, так проще понять, что используется чем всматриваться в текст
+import { useState } from 'react'; // <--  хуки лучше так импортировать, так проще понять, что используется чем всматриваться в текст
 import RegistrationPopupForm from './RegistrationPopupForm/RegistrationPopupForm';
 import LoginPopupForm from './LoginPopupForm/LoginPopupForm';
 import EditPopupForm from './EditPopupForm/EditPopupForm';
 import AddMurmPopupForm from './AddMurmPopupForm/AddMurmPopupForm';
 import AvatarPopupForm from './AvatarPopupForm/AvatarPopupForm';
 import ConfirmDeletePopup from './ConfirmDeletePopup/ConfirmDeletePopup';
-import {murms} from '../data/data';
 import api from '../utils/api';
+import {testUser,murmsList} from '../data/data';
 import * as auth from '../utils/auth';
 function App() {
 	const [currentUser, setCurrentUser] = useState({});
 	const [murms, setMurms] = useState([]);
 	const [loggedIn, setLoggedIn] = React.useState(null);
-	const [isAlertPopupOpened, setIsAlertPopupOpened] = React.useState(false);
-	const [registerStatus, setRegisterStatus] = React.useState(false)
 	const [registerState, setRegisterState] = React.useState(false);
 	const [userName, setUsername] = React.useState('');
 
@@ -114,12 +112,9 @@ function App() {
 			.then((res) => {
 				console.log(res)
 				if (res) {
-					setIsAlertPopupOpened(true);
-					setRegisterStatus(true);
 					setRegisterState(false);
+					closeAllPopups();
 				} else {
-					setIsAlertPopupOpened(true);
-					setRegisterStatus(false);
 					setRegisterState(true);
 				}
 
@@ -137,11 +132,12 @@ function App() {
 					localStorage.setItem('jwt', res.token);
 					setLoggedIn(true);
 					setUsername(data.email);
+					setCurrentUser(data);
+					closeAllPopups();
+					
 
 				} else {
 					setLoggedIn(false);
-					setIsAlertPopupOpened(true);
-					setRegisterStatus(false);
 					setRegisterState(false);
 				}
 			})
@@ -153,11 +149,16 @@ function App() {
 	function handleLogout() {
 		localStorage.removeItem('jwt');
 		setLoggedIn(false);
+		setCurrentUser(testUser);
+
 	}
 	function handleTokenCheck(jwt) {
 		auth.checkToken(jwt)
 			.then((res) => {
 				setUsername(res.email)
+				setCurrentUser(res);
+				setMurms(murmsList);
+				api.getMurms();
 				if (res) {
 					setLoggedIn(true);
 				}
@@ -190,24 +191,16 @@ function App() {
 		setIsConfirmOpened(false);
 	}
 
-	useEffect(() => {
-		Promise.all([api.getUser(), api.getMurms()])
-			.then(([testUser, murms]) => {
-				setCurrentUser(testUser);
-				setMurms(murms);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	}, []);
 	React.useEffect(() => {
         const jwt = localStorage.getItem('jwt');
         if (jwt) {
-            handleTokenCheck(jwt);
-
-        }
+			handleTokenCheck(jwt);
+        } else {
+			setCurrentUser(testUser);
+		}
         // eslint-disable-next-line
 	}, []);
+
 	
 	return (
 		<div className="root">

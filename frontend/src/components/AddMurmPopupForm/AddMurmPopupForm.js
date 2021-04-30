@@ -1,19 +1,9 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation/Validation';
 
 function AddMurmPopupForm({ isOpened, onClose, onAddMurm }) {
-	// const [ text, setText ] = useState('');
 
-	// function handleText(e) {
-	// 	setText(e.target.value);
-	// }
-
-	// function handleSubmit(e) {
-	// 	e.preventDefault();
-	// 	console.log('SUBMIT');
-	// }
 
 	const { values, handleChange, errors, isValid } = useFormWithValidation({});
 
