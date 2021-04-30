@@ -15,7 +15,7 @@ const { PORT = 3003 } = process.env;
 
 const { getTwits } = require('./controllers/twits');
 
-const whitelist = [ 'http://localhost:3000',['http://localhost:3000/#/'] ];
+const whitelist = [ 'http://localhost:3000', [ 'http://localhost:3000/#/' ] ];
 const corsOptions = {
 	origin(origin, callback) {
 		if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -38,12 +38,23 @@ const corsOptions = {
 const app = express();
 
 // подключаемся к серверу mongo
+/*
 mongoose.connect('mongodb://localhost:27017/murmur', {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useFindAndModify: false,
 	useUnifiedTopology: true
-});
+});*/
+
+mongoose.connect(
+	'mongodb+srv://alex76456:alex76456@cluster0.dxe6y.mongodb.net/murmur?retryWrites=true&w=majority',
+	{
+		useNewUrlParser: true,
+		useCreateIndex: true,
+		useFindAndModify: false,
+		useUnifiedTopology: true
+	}
+);
 
 const validateUserSignup = celebrate({
 	body: Joi.object().keys({

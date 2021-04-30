@@ -63,7 +63,7 @@ class Api {
 			}
 		}).then(this._getResponse);
 	}
-	//--------------------------------------------------------------------------------------------------------------
+
 	getUser() {
 		return fetch(`${this._url}/users/me`, {
 			headers: {
@@ -96,6 +96,20 @@ class Api {
 			},
 			body: JSON.stringify({
 				avatar: avatar
+			})
+		}).then(this._getResponse);
+	}
+
+	setNewComment(twitId, text, user) {
+		return fetch(`${this._url}/twits/${twitId}/comments`, {
+			method: 'POST',
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('jwt')}`,
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				text: text,
+				name: user.name
 			})
 		}).then(this._getResponse);
 	}

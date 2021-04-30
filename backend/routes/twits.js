@@ -17,7 +17,8 @@ const validateTwitId = celebrate({
 
 const validateTwitComment = celebrate({
 	body: Joi.object().keys({
-		text: Joi.string().required().min(2).max(140)
+		text: Joi.string().required().min(1).max(140),
+		name: Joi.string().required().min(2).max(140)
 	})
 });
 
@@ -30,7 +31,7 @@ const validateTwitCommentId = celebrate({
 
 const {
 	// getResponse,
-	/*getTwits,*/
+
 	createTwit,
 	editTwit,
 	deleteTwit,
@@ -42,7 +43,6 @@ const {
 	deleteTwitComment
 } = require('../controllers/twits');
 
-//router.get('/', getTwits);
 router.post('/', validateTwit, createTwit);
 router.patch('/:twitId', validateTwitId, editTwit);
 router.delete('/:twitId', validateTwitId, deleteTwit);

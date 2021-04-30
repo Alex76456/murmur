@@ -34,6 +34,7 @@ const twitSchema = new mongoose.Schema({
 	comments: [
 		{
 			type: Object,
+			//ref: 'comment',
 			default: []
 		}
 	],

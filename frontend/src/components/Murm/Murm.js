@@ -2,7 +2,7 @@ import React from 'react';
 import './Murm.css';
 import { useState } from 'react';
 
-function Murm({ murm, user, confirmClick, onMurmLike }) {
+function Murm({ murm, user, confirmClick, onMurmLike, onCommentSubmit }) {
 	const [ isOpenedCommints, setIsOpenedCommints ] = useState(false);
 	const [ commentInput, setCommentInput ] = useState('');
 
@@ -33,6 +33,12 @@ function Murm({ murm, user, confirmClick, onMurmLike }) {
 		onMurmLike(murm, isLiked);
 	}
 
+	function handleSubmit(e) {
+		e.preventDefault();
+		onCommentSubmit(murm._id, commentInput);
+		setCommentInput('');
+	}
+
 	return (
 		<li className="murms__list-item">
 			<button className={murmDeleteButtonClassName} onClick={handleClick} />
@@ -51,8 +57,7 @@ function Murm({ murm, user, confirmClick, onMurmLike }) {
 					/>
 					<p className="murms__values-number">{murm.comments.length}</p>
 				</div>
-				{isOpenedCommints &&
-				murm.comments.length > 0 && (
+				{isOpenedCommints && (
 					<div className="comments">
 						<ul className="comments__list">
 							{murm.comments.map((item, i) => {
@@ -65,7 +70,7 @@ function Murm({ murm, user, confirmClick, onMurmLike }) {
 								);
 							})}
 						</ul>
-						<form className="comments__form" /*onSubmit={handleSubmit}*/ noValidate>
+						<form className="comments__form" onSubmit={handleSubmit} noValidate>
 							<label className="comments__form-field">
 								<input
 									className="comments__input"

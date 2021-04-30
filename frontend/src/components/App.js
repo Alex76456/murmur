@@ -78,6 +78,20 @@ function App() {
 			});
 	}
 
+	function handleAddCommentSubmit(murmId, inputsValues) {
+		api
+			.setNewComment(murmId, inputsValues, currentUser)
+			.then((newMurm) => {
+				console.log(newMurm);
+
+				const newMurms = murms.map((c) => (c._id === murmId ? newMurm : c));
+				setMurms(newMurms);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	}
+
 	function handleUpdateUser(inputsValues) {
 		api
 			.setUser(inputsValues)
@@ -198,7 +212,7 @@ function App() {
 	React.useEffect(() => {
 		const jwt = localStorage.getItem('jwt');
 		api.getMurms().then((r) => {
-			setMurms(r);
+			setMurms(r.reverse());
 		});
 		if (jwt) {
 			handleTokenCheck(jwt);
@@ -228,6 +242,7 @@ function App() {
 					avatarClick={handleAvatarClick}
 					confirmClick={handleMurmDelete}
 					onMurmLike={handleMurmLike}
+					onCommentSubmit={handleAddCommentSubmit}
 				/>
 				{/* {!loggedIn && <Footer />} */}
 				<Footer />
