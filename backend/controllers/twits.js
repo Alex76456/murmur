@@ -17,13 +17,15 @@ module.exports.getTwits = (req, res, next) => {
 };
 
 module.exports.createTwit = (req, res, next) => {
-	const { text } = req.body;
-	Twit.create({ text, owner: req.user._id }).then((twit) => res.send(twit)).catch((err) => {
-		errorHandler(err, next, {
-			CastErrorMessage: 'Переданы некорректные данные',
-			ValidationErrorMessage: 'Ошибка валидации данных'
+	const { text, name, link } = req.body;
+	Twit.create({ text, owner: req.user._id, name, link })
+		.then((twit) => res.send(twit))
+		.catch((err) => {
+			errorHandler(err, next, {
+				CastErrorMessage: 'Переданы некорректные данные',
+				ValidationErrorMessage: 'Ошибка валидации данных'
+			});
 		});
-	});
 };
 
 module.exports.editTwit = (req, res, next) => {
