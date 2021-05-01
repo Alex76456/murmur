@@ -1,7 +1,7 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
 import './AddMurmPopupForm.css';
-import { useFormWithValidation } from '../../utils/Validation/Validation';
+import { useFormWithValidation } from '../../utils/validation';
 
 function AddMurmPopupForm({ isOpened, onClose, onAddMurm, onEscClose }) {
 	const { values, handleChange, errors, isValid } = useFormWithValidation({});

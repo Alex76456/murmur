@@ -1,6 +1,6 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useFormWithValidation } from '../../utils/Validation/Validation';
+import { useFormWithValidation } from '../../utils/validation';
 
 function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar, onEscClose }) {
 	// const [ avatar, setAvatar ] = useState('');

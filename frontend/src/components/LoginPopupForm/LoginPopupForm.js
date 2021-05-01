@@ -1,16 +1,17 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useFormWithValidation } from '../../utils/Validation/Validation';
+import { useFormWithValidation } from '../../utils/validation';
 
 function LoginPopupForm({ isOpened, onClose, handleLogin, onEscClose }) {
-	const { values, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
-			console.log(values);
 			handleLogin(values);
+			resetForm();
 		}
+		resetForm();
 	};
 
 	return (

@@ -16,6 +16,7 @@ function Murm({ murm, user, confirmClick, onMurmLike, onCommentSubmit }) {
 	const murmLikeButtonClassName = `murms__caption-like ${isLiked
 		? 'murms__caption-like_color_black'
 		: 'murms__caption-like_color_white'}`;
+	
 
 	function handleCommentClick() {
 		setIsOpenedCommints(!isOpenedCommints);
@@ -36,7 +37,7 @@ function Murm({ murm, user, confirmClick, onMurmLike, onCommentSubmit }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		onCommentSubmit(murm._id, commentInput);
-		setCommentInput('');
+
 	}
 
 	return (
