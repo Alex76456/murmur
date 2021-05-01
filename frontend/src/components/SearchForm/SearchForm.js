@@ -1,23 +1,59 @@
-import { useFormWithValidation } from '../../utils/Validation/Validation';
+import { useFormWithValidation } from '../../utils/validation';
 import './SearchForm.css';
-
-const SearchForm = ({ handleSearchSubmit }) => {
+import api from '../../utils/api';
+const SearchForm = (props) => {
     const { values, handleChange, errors, isValid } = useFormWithValidation({});
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (isValid) {
+            api.getMurms()
+                .then((res) => {
+                    localStorage.setItem('murms', JSON.stringify(res));
+                })
+                .catch(err => console.log(err));
+
+            const murmsList = JSON.parse(localStorage.getItem('murms'));
+
+            const newList = murmsList.filter(function (e) {
+                return e.link === values.link;
+            });
+            props.handleSetMurms(newList);
+            api.getUsers()
+                .then((res) => {
+                    localStorage.setItem('users', JSON.stringify(res));
+                })
+                .catch(err => console.log(err));
+            const usersList = JSON.parse(localStorage.getItem('users'));
+
+            const userProfile = usersList.filter(function (e) {
+                return e.link === values.link;
+            });
+            if (userProfile[0]) {
+                props.handleSetCurrentUser(userProfile[0])
+            } else {
+                api.getUser(localStorage.getItem('jwt'))
+                    .then(res => props.handleSetCurrentUser(res))
+                api.getMurms().then((r) => {
+                    props.handleSetMurms(r.reverse());
+                });
+
+            }
+        }
+
     }
-    
+
     return (
-        
-            <div className="search">
-                <form className="search__form" onSubmit={handleSubmit} noValidate>
-                    <input className={`search__input ${errors && errors["user"] && 'search__input_type_error'}`}
-                        placeholder="Найти пользователя" required onChange={handleChange} name="user" type="text" ></input>
-                    <button type="submit" className="search__button" >Поиск</button>
-                </form>
-            </div>
-        
+
+        <div className="search">
+            <form className="search__form" onSubmit={handleSubmit} noValidate>
+                <input className={`search__input ${errors && errors["link"] && 'search__input_type_error'}`}
+                    placeholder="Найти пользователя" required onChange={handleChange} name="link" type="text" ></input>
+                <button type="submit" className="search__button" >Поиск</button>
+            </form>
+        </div>
+
     );
 };
 

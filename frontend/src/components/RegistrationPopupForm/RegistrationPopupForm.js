@@ -1,16 +1,17 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import React from 'react';
-import { useFormWithValidation } from '../../utils/Validation/Validation';
+import { useFormWithValidation } from '../../utils/validation';
 
 function RegistrationPopupForm({ isOpened, onClose, handleRegister, onEscClose }) {
-	const { values, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid,resetForm } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
-			console.log(values);
 			handleRegister(values);
+			resetForm();
 		}
+		resetForm();
 	};
 
 	return (
@@ -52,14 +53,15 @@ function RegistrationPopupForm({ isOpened, onClose, handleRegister, onEscClose }
 			<span className="input-error">{errors && errors['name'] !== '' && errors['name']}</span>
 			<input
 				onChange={handleChange}
-				placeholder="Логин"
+				placeholder="@Линк"
 				id="input-login"
 				name="link"
 				className="popup__input-item popup__input-item_el_link"
 				type="text"
 				required
 				minLength="2"
-				maxLength="40"
+				maxLength="15"
+				pattern="^@[-a-zA-Z0-9]{1,15}"
 			/>
 			<span className="input-error">{errors && errors['link'] !== '' && errors['link']}</span>
 			<input

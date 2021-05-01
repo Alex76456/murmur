@@ -14,20 +14,22 @@ import api from '../utils/api';
 import { testUser /*murmsList */ } from '../data/data';
 import * as auth from '../utils/auth';
 function App() {
-	const [ currentUser, setCurrentUser ] = useState({});
-	const [ murms, setMurms ] = useState([]);
-	const [ loggedIn, setLoggedIn ] = React.useState(null);
-	const [ registerState, setRegisterState ] = React.useState(false);
-	const [ userName, setUsername ] = React.useState('');
+	const [currentUser, setCurrentUser] = useState({});
+	const [murms, setMurms] = useState([]);
+	const [loggedIn, setLoggedIn] = React.useState(null);
+	const [registerState, setRegisterState] = React.useState(false);
+	const [userName, setUsername] = React.useState('');
 
-	const [ isRegisterOpened, setIsRegisterOpened ] = useState(false);
-	const [ isLoginOpened, setIsLoginOpened ] = useState(false);
-	const [ isEditOpened, setIsEditOpened ] = useState(false);
-	const [ isAddOpened, setIsAddOpened ] = useState(false);
-	const [ isAvatarOpened, setIsAvatarOpened ] = useState(false);
-	const [ isConfirmOpened, setIsConfirmOpened ] = useState(false);
+	const [isRegisterOpened, setIsRegisterOpened] = useState(false);
+	const [isLoginOpened, setIsLoginOpened] = useState(false);
+	const [isEditOpened, setIsEditOpened] = useState(false);
+	const [isAddOpened, setIsAddOpened] = useState(false);
+	const [isAvatarOpened, setIsAvatarOpened] = useState(false);
+	const [isConfirmOpened, setIsConfirmOpened] = useState(false);
 
-	const [ murmToDelete, setMurmToDelete ] = useState({});
+	const [murmToDelete, setMurmToDelete] = useState({});
+
+
 
 	function handleMurmLike(murm, isLiked) {
 		(!isLiked ? api.setLikeMurm(murm._id) : api.deleteLikeMurm(murm._id))
@@ -41,6 +43,10 @@ function App() {
 			.finally(() => {
 				closeAllPopups();
 			});
+	}
+
+	function handleSetMurms(data) {
+		setMurms(data);
 	}
 
 	function handleMurmDelete(murm) {
@@ -68,7 +74,7 @@ function App() {
 		api
 			.setNewMurm(inputsValues, currentUser)
 			.then((newMurm) => {
-				setMurms([ newMurm, ...murms ]);
+				setMurms([newMurm, ...murms]);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -90,6 +96,9 @@ function App() {
 			.catch((err) => {
 				console.error(err);
 			});
+	}
+	function handleSetCurrentUser(data) {
+		setCurrentUser(data)
 	}
 
 	function handleUpdateUser(inputsValues) {
@@ -142,7 +151,6 @@ function App() {
 			.authorize(data)
 			.then((res) => {
 				if (res.token) {
-					console.log(data);
 					localStorage.setItem('jwt', res.token);
 					setLoggedIn(true);
 					setUsername(data.email);
@@ -174,15 +182,6 @@ function App() {
 		});
 	}
 
-	React.useEffect(
-		() => {
-			if (loggedIn) {
-				const jwt = localStorage.getItem('jwt');
-				handleTokenCheck(jwt);
-			}
-		},
-		[ loggedIn ]
-	);
 
 	function handleRegisterClick() {
 		setIsRegisterOpened(true);
@@ -215,6 +214,16 @@ function App() {
 		}
 	}
 
+	React.useEffect(
+		() => {
+			if (loggedIn) {
+				const jwt = localStorage.getItem('jwt');
+				handleTokenCheck(jwt);
+			}
+		},
+		[loggedIn]
+	);
+
 	React.useEffect(() => {
 		const jwt = localStorage.getItem('jwt');
 		api.getMurms().then((r) => {
@@ -232,6 +241,8 @@ function App() {
 		<div className="root">
 			<div className="page">
 				<Header
+					handleSetCurrentUser={handleSetCurrentUser}
+					handleSetMurms={handleSetMurms}
 					handleLogout={handleLogout}
 					userName={userName}
 					state={loggedIn}

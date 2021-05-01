@@ -73,6 +73,15 @@ class Api {
 		}).then(this._getResponse);
 	}
 
+	getUsers() {
+		return fetch(`${this._url}/users`, {
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('jwt')}`,
+				'Content-type': 'application/json'
+			}
+		}).then(this._getResponse);
+	}
+
 	setUser({ name, about }) {
 		return fetch(`${this._url}/users/me`, {
 			method: 'PATCH',

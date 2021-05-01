@@ -80,7 +80,8 @@
 .profile__edit-button {
 	padding: 5px;
 	border-radius: 10px;
-	border: transparent;
+	border: none;
+	border-bottom: 3px solid blue;
 	background-color: #fff;
 	font-size: 13px;
 	line-height: 1.1;
@@ -98,7 +99,8 @@
 	margin-top: 30px;
 	padding: 5px 30px;
 	border-radius: 5px;
-	border: transparent;
+	border: none;
+	border-bottom: 3px solid blue;
 	background-color: #fff;
 	color: black;
 	text-transform: uppercase;
@@ -140,7 +142,8 @@
 	margin-top: 15px;
 	padding: 5px;
 	border-radius: 5px;
-	border: transparent;
+	border: none;
+	border-bottom: 3px solid blue;
 	background-color: #fff;
 	font-size: 20px;
 	line-height: 1.1;
