@@ -34,7 +34,7 @@ function EditPopupForm({ isOpened, onClose, onUpdateUser, onEscClose }) {
 				maxLength="40"
 			/>
 			<span className="input-error">{errors && errors['name'] !== '' && errors['name']}</span>
-			<input
+			{/* <input
 				onChange={handleChange}
 				placeholder="@Линк"
 				id="link-input"
@@ -45,8 +45,8 @@ function EditPopupForm({ isOpened, onClose, onUpdateUser, onEscClose }) {
 				maxLength="16"
 			/>
 			<span className="input-error">
-				{errors && errors['password'] !== '' && errors['password']}
-			</span>
+				{errors && errors['link'] !== '' && errors['link']}
+			</span> */}
 		</PopupWithForm>
 	);
 }
