@@ -20,7 +20,7 @@ function Header(props) {
                 <img src={logo} alt="Логотип 'Murmur' " className="header__logo" />
                 <span className="header__title">Murmur</span>
                 </div>
-                <SearchForm handleSetCurrentUser={props.handleSetCurrentUser} handleSetMurms={props.handleSetMurms} setUserName ={setUserName} />
+                <SearchForm isLoggedIn={loggedIn} handleSetCurrentUser={props.handleSetCurrentUser} handleSetMurms={props.handleSetMurms} setUserName ={setUserName} />
                 <div className="header__container_nav">
                 {props.state && (<div className='header__nav'>
                 <span className='header__username'>{props.userName}</span>
