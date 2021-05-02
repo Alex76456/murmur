@@ -37,6 +37,7 @@ function Murm({ murm, user, confirmClick, onMurmLike, onCommentSubmit }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		onCommentSubmit(murm._id, commentInput);
+		setCommentInput('');
 
 	}
 

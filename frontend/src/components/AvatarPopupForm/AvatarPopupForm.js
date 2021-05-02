@@ -14,13 +14,15 @@ function AvatarPopupForm({ isOpened, onClose, onUpdateAvatar, onEscClose }) {
 	// 	console.log('SUBMIT');
 	// }
 
-	const { values, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid,resetForm } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
 			onUpdateAvatar(values);
+			resetForm();
 		}
+		resetForm();
 	};
 
 	return (

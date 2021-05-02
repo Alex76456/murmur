@@ -5,12 +5,11 @@ import SearchForm from '../SearchForm/SearchForm';
 
 
 function Header(props) {
-    const [loggedIn,setLoggedIn] = React.useState(null);
     const [userName, setUserName] = React.useState('');
 
     function logOut(){
         localStorage.removeItem('jwt');
-        setLoggedIn(false);
+        props.setLoggedIn(false);
         setUserName('');
     }
     return (
@@ -20,13 +19,13 @@ function Header(props) {
                 <img src={logo} alt="Логотип 'Murmur' " className="header__logo" />
                 <span className="header__title">Murmur</span>
                 </div>
-                <SearchForm isLoggedIn={loggedIn} handleSetCurrentUser={props.handleSetCurrentUser} handleSetMurms={props.handleSetMurms} setUserName ={setUserName} />
+                <SearchForm isLoggedIn={props.state} handleSetCurrentUser={props.handleSetCurrentUser} handleSetMurms={props.handleSetMurms} setUserName ={setUserName} />
                 <div className="header__container_nav">
                 {props.state && (<div className='header__nav'>
                 <span className='header__username'>{props.userName}</span>
                     <button className='header__link' to="/" onClick={props.handleLogout}>Выйти</button>
                 </div>)}
-                {loggedIn && (<div className='header__nav'>
+                {props.loggedIn && (<div className='header__nav'>
                 <span className='header__username'>{userName}</span>
                     <button className='header__link' to="/" onClick={logOut}>Выйти</button>
                 </div>)}

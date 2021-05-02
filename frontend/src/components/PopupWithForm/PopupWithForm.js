@@ -2,6 +2,7 @@ import closeBtn from '../../images/close.svg';
 import './PopupWithForm.css';
 import { useEffect } from 'react';
 
+
 function PopupWithForm({ name, title, isOpened, onClose, onEscClose, children, onSubmit, button }) {
 	useEffect(
 		() => {

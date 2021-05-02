@@ -3,14 +3,15 @@ import React from 'react';
 import { useFormWithValidation } from '../../utils/validation';
 
 function EditPopupForm({ isOpened, onClose, onUpdateUser, onEscClose }) {
-	const { values, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid,resetForm } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
 			onUpdateUser(values);
-
+			resetForm();
 		}
+		resetForm();
 	};
 	return (
 		<PopupWithForm
