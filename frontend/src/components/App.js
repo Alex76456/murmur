@@ -10,6 +10,7 @@ import EditPopupForm from './EditPopupForm/EditPopupForm';
 import AddMurmPopupForm from './AddMurmPopupForm/AddMurmPopupForm';
 import AvatarPopupForm from './AvatarPopupForm/AvatarPopupForm';
 import ConfirmDeletePopup from './ConfirmDeletePopup/ConfirmDeletePopup';
+
 import api from '../utils/api';
 import { testUser /*murmsList */ } from '../data/data';
 import * as auth from '../utils/auth';
@@ -19,14 +20,12 @@ function App() {
 	const [loggedIn, setLoggedIn] = React.useState(null);
 	const [registerState, setRegisterState] = React.useState(false);
 	const [userName, setUsername] = React.useState('');
-
 	const [isRegisterOpened, setIsRegisterOpened] = useState(false);
 	const [isLoginOpened, setIsLoginOpened] = useState(false);
 	const [isEditOpened, setIsEditOpened] = useState(false);
 	const [isAddOpened, setIsAddOpened] = useState(false);
 	const [isAvatarOpened, setIsAvatarOpened] = useState(false);
 	const [isConfirmOpened, setIsConfirmOpened] = useState(false);
-
 	const [murmToDelete, setMurmToDelete] = useState({});
 
 
@@ -88,8 +87,6 @@ function App() {
 		api
 			.setNewComment(murmId, inputsValues, currentUser)
 			.then((newMurm) => {
-				console.log(newMurm);
-
 				const newMurms = murms.map((c) => (c._id === murmId ? newMurm : c));
 				setMurms(newMurms);
 			})
@@ -160,6 +157,20 @@ function App() {
 					setLoggedIn(false);
 					setRegisterState(false);
 				}
+			})
+			.then(()=>{
+				api.getUsers()
+                .then((res) => {
+                    localStorage.setItem('users', JSON.stringify(res));
+                })
+                .catch(err => console.log(err));
+			})
+			.then(()=>{
+				api.getMurms()
+                .then((res) => {
+                    localStorage.setItem('murms', JSON.stringify(res));
+                })
+                .catch(err => console.log(err));
 			})
 			.catch((err) => {
 				console.log(err);

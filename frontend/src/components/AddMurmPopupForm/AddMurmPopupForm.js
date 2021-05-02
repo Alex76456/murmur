@@ -4,13 +4,15 @@ import './AddMurmPopupForm.css';
 import { useFormWithValidation } from '../../utils/validation';
 
 function AddMurmPopupForm({ isOpened, onClose, onAddMurm, onEscClose }) {
-	const { values, handleChange, errors, isValid } = useFormWithValidation({});
+	const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation({});
 
 	const onSubmit = (e) => {
 		e.preventDefault();
 		if (isValid) {
 			onAddMurm(values.murm);
+			resetForm()
 		}
+		resetForm()
 	};
 
 	return (
